@@ -1,17 +1,18 @@
 import configparser
-import psycopg2
 
+
+# CONFIG
 config = configparser.ConfigParser()
-config.read_file(open('dwh.cfg'))
+config.read('dwh.cfg')
 
-# Drop Tables
+# DROP TABLES
 staging_events_table_drop = "DROP TABLE IF EXISTS staging_events"
 staging_songs_table_drop = "DROP TABLE IF EXISTS staging_songs"
 songplay_table_drop = "DROP TABLE IF EXISTS songplays"
 user_table_drop = "DROP TABLE IF EXISTS users"
 song_table_drop = "DROP TABLE IF EXISTS songs"
 artist_table_drop = "DROP TABLE IF EXISTS artists"
-
+time_table_drop = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES --------------------------------------------------------------
 staging_events_table_create= ("""
@@ -234,9 +235,10 @@ staging_songs_table_drop = ("""
 DROP TABLE IF EXISTS staging_songs
 """)
 
+
 # QUERY LISTS ----------------------------------------------------------------
 create_table_queries = [staging_events_table_create, staging_songs_table_create, songplay_table_create, user_table_create, song_table_create, artist_table_create]
 copy_table_queries = [staging_events_copy, staging_songs_copy]
-drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop]
+drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
 insert_table_queries = [songplay_table_insert, user_table_insert, song_table_insert, artist_table_insert]
 delete_copy_tables = [staging_events_drop, staging_songs_table_drop]
