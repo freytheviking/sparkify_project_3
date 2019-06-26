@@ -32,7 +32,7 @@ Below is a schematic of the ETL process, as well as the OLAP star schema on Amaz
 
 Some additional architectural notes.
 
-1. Keys 
+1. **Keys**
 
 	distkey:
 
@@ -43,12 +43,12 @@ Some additional architectural notes.
  	Used a *sortkey* on the `timestamp` variable in both the `songplays` fact table and the `time` dimensional table. This makes logical sense as it is common for tables to be sorted on timestamps.
 
 
-2. Distribution Style
+2. **Distribution Style**
 
  	Used *DISTSTYLE ALL* for the `artists` table because we suspect that this table will be pretty small compared to the others. Its growth should also be linear.
 
 
-3. *INSERT* statement for *songplays* table.
+3. <b>*INSERT* statement for *songplays* table.</b>
 
  	We create the `songplays` table by joining the `staging_events` and `staging_songs` tables. We also filtered out any rows where `page` was not equal to "NextSong", as other values do not represent a song listening action by the user.
 
